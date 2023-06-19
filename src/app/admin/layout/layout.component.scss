@@ -1,0 +1,37 @@
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.nav {
+    width: 100%;
+    height: 50px;
+}
+
+mat-sidenav-container{
+    height: calc(100vh - 50px); 
+}
+
+mat-sidenav{
+    width: 250px;
+    background-color: #fffbfb;
+}
+
+mat-sidenav-content{
+    background-color: #fffbfb;
+    padding-left: 2rem;
+    padding-top: 1rem;
+}
+
+.menu-list{
+    display: flex;
+    flex-direction: column;
+    padding-left: 32px;
+}
+
+.menu-list a{
+    margin-top: 1rem;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+    color: black;
+}

@@ -5,6 +5,7 @@ import { ComponentsModule } from '../components/components.module';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 
 
@@ -18,7 +19,8 @@ import { RouterModule } from '@angular/router';
     RouterModule,
     MatToolbarModule,
     MatSidenavModule,
-    MatIconModule
+    MatIconModule,
+    MatButtonModule
   ]
 })
 export class LayoutModule { }
