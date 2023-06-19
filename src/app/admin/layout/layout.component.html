@@ -1,0 +1,20 @@
+<mat-toolbar class="nav">
+    <button mat-icon-button class="menu-icon" (click)="opened = !opened">
+        <mat-icon>menu</mat-icon>
+    </button>
+</mat-toolbar>
+
+<mat-sidenav-container>
+    <mat-sidenav [(opened)]="opened" mode="side">
+        <div class="menu-list">
+            <a routerLink="articles">Articles</a>
+            <a routerLink="categories">Categories</a>
+            <a routerLink="projects">Projects</a>
+            <a routerLink="personal-info">Personal Info</a>
+            <a routerLink="skills">Skills</a>
+        </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
