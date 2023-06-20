@@ -18,11 +18,11 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     HttpClientModule,
     UiModule,
-    AdminModule
+    AdminModule,
   ],
   providers: [
     { provide: "baseUrl", useValue: "https://localhost:7010/api", multi: true }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

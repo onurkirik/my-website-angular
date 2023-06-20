@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
     selector: 'app-register',
@@ -7,24 +9,39 @@ import { Router } from '@angular/router';
     styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-    email: string | null = null;
-    password: string | null = null;
+
+    _loginForm = new FormGroup({
+        email: new FormControl(null, [Validators.required]),
+        password: new FormControl(null, [Validators.required]),
+        rememberMe: new FormControl(false)
+    });
+
+
 
     constructor(
-        private router: Router
+        private _router: Router,
+        private _userService: UserService
     ) { }
 
     ngOnInit(): void { }
 
-    public login() {
-        // Burada Web API'ye istek göndererek kullanıcıyı kontrol edebilirsiniz.
-        // Örnek olarak sadece "admin" kullanıcı adı ve "password" şifresini kabul edelim.
-        if (this.email === 'admin' && this.password === 'password') {
-            // Giriş başarılı olduğunda yönlendirme yapabilirsiniz.
-            this.router.navigate(['/admin']);
-        } else {
-            // Giriş başarısız olduğunda kullanıcıya bir hata mesajı gösterebilirsiniz.
-            console.log('Giriş başarısız!');
+    public onSubmit() {
+        if (this._loginForm.valid) {
+            const credentials: LoginForm = {
+                email: this._loginForm.get('email')?.value,
+                password: this._loginForm.get('password')?.value,
+                rememberMe: this._loginForm.get('rememberMe')?.value
+            };
+            this._userService.login(credentials).subscribe((res) => {
+                this._router.navigate(['/admin']);
+            });
         }
     }
+
+}
+
+export interface LoginForm {
+    email: any;
+    password: any;
+    rememberMe: any;
 }
