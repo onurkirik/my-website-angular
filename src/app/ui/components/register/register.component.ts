@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit {
                 password: this._loginForm.get('password')?.value,
                 rememberMe: this._loginForm.get('rememberMe')?.value
             };
-            this._userService.login(credentials).subscribe((res) => {
+            this._userService.signIn(credentials).subscribe((res) => {
                 this._router.navigate(['/admin']);
             });
         }

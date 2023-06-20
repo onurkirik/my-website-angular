@@ -8,17 +8,7 @@ import { ArticleService } from 'src/app/services/article.service';
 })
 export class HomePageMainComponent {
 
-  data: any;
-  id: string = "A44CE742-19C4-4C85-B8F1-8A2F35F9CEB4";
+  constructor() { }
 
-  constructor(
-    private _articleService: ArticleService
-  ) { }
-
-  ngOnInit(): void {
-    this._articleService.getById(this.id).subscribe((res) => {
-      this.data = res;
-      console.log(this.data);
-    });
-  }
+  ngOnInit(): void { }
 }

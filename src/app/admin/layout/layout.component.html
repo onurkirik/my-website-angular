@@ -1,7 +1,8 @@
-<mat-toolbar class="nav">
+<mat-toolbar class="nav justify-content-between">
     <button mat-icon-button class="menu-icon" (click)="opened = !opened">
         <mat-icon>menu</mat-icon>
     </button>
+    <button mat-icon-button button (click)="logout()"><mat-icon>logout</mat-icon></button>
 </mat-toolbar>
 
 <mat-sidenav-container>
@@ -14,7 +15,7 @@
             <a routerLink="skills">Skills</a>
         </div>
     </mat-sidenav>
-    <mat-sidenav-content>
+    <mat-sidenav-content class="p-0">
         <router-outlet></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>
