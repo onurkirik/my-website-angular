@@ -7,8 +7,8 @@ import { Skills } from "./Skills.model";
 import { SocialMedia } from "./SocialMedia.model";
 import { WorkExperience } from "./WorkExperience.model";
 
-export interface AppUser{
-    id: string;
+export interface AppUser {
+  id: string;
   userName: string;
   name: string;
   surname: string;

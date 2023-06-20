@@ -1,1 +1,54 @@
-<p>articles-searchbox works!</p>
+<div class="container">
+    <div class="mat-elevation-z8 mt-4">
+        <table mat-table [dataSource]="_dataSource">
+
+            <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef>Title</th>
+                <td mat-cell *matCellDef="let element">
+                    {{ element.title | slice:0:40 }}{{ element.title.length > 40 ? '...' : '' }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="content">
+                <th mat-header-cell *matHeaderCellDef>Content</th>
+                <td mat-cell *matCellDef="let element">
+                    {{ element.content | slice:0:40 }}{{ element.content.length > 40 ? '...' : '' }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="createdDate">
+                <th mat-header-cell *matHeaderCellDef>Created Date</th>
+                <td mat-cell *matCellDef="let element"> {{element.createdDate | date}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="updatedDate">
+                <th mat-header-cell *matHeaderCellDef>Updated Date</th>
+                <td class="text-center" mat-cell *matCellDef="let element">
+                    <ng-container *ngIf="element.updatedDate !== null">
+                        {{ element.updatedDate | date}}
+                    </ng-container>
+                    <ng-container *ngIf="element.updatedDate === null">
+                        -
+                    </ng-container>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="author">
+                <th mat-header-cell *matHeaderCellDef>Author</th>
+                <td mat-cell *matCellDef="let element"> {{element.author.name + ' ' + element.author.surname}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="category">
+                <th mat-header-cell *matHeaderCellDef>Category</th>
+                <td mat-cell *matCellDef="let element">
+                    {{ element.category.name | slice:0:40 }}{{ element.category.name.length > 40 ? '...' : '' }}
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="_displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: _displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+        </mat-paginator>
+    </div>
+</div>
