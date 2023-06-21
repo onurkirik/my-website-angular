@@ -9,7 +9,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginatorModule } from '@angular/material/paginator';
-
+import {AngularEditorModule} from '@kolkov/angular-editor';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatButtonModule} from '@angular/material/button';
 
 
 
@@ -28,7 +33,14 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatInputModule,
     MatIconModule,
     MatFormFieldModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    AngularEditorModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatButtonModule
   ]
 })
 export class ArticlesModule { }

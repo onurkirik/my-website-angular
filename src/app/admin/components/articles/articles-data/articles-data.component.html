@@ -1,1 +1,36 @@
-<p>articles-data works!</p>
+<div class="container">
+    <form [formGroup]="_articleForm" class="d-flex flex-column">
+        <mat-form-field appearance="outline">
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Category</mat-label>
+            <input matInput formControlName="category">
+        </mat-form-field>
+
+        <div class="d-flex flex-row justify-content-between">
+            <mat-form-field appearance="outline">
+                <mat-label>Created Date</mat-label>
+                <input matInput [matDatepicker]="createdPicker" formControlName="createdDate">
+                <mat-datepicker-toggle matIconSuffix [for]="createdPicker"></mat-datepicker-toggle>
+                <mat-datepicker #createdPicker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Updated Date</mat-label>
+                <input matInput [matDatepicker]="updatedPicker" formControlName="updatedDate">
+                <mat-datepicker-toggle matIconSuffix [for]="updatedPicker"></mat-datepicker-toggle>
+                <mat-datepicker #updatedPicker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <angular-editor placeholder="Enter article content..." [config]="_editorConfig" formControlName="content"></angular-editor>
+
+        <div class="d-flex flex-row mt-2 justify-content-between">
+            <button type="submit" mat-raised-button>Clear</button>
+            <button type="submit" mat-raised-button>Save</button>
+        </div>
+    </form>
+</div>

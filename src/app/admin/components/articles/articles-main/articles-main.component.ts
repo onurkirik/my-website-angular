@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Article } from 'src/app/models/Article.model';
 
 @Component({
   selector: 'app-articles-main',
@@ -7,4 +8,12 @@ import { Component } from '@angular/core';
 })
 export class ArticlesMainComponent {
 
+  selectedArticle: Article | undefined;
+
+  onArticleSelected(article: Article) {
+    this.selectedArticle = article;
+  }
+
+  constructor() { }
+  ngOnInit(): void { }
 }

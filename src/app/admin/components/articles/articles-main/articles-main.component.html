@@ -1,4 +1,4 @@
-<div class="container d-flex justify-content-around align-items-center h-100">
-    <app-articles-data></app-articles-data>
-    <app-articles-searchbox></app-articles-searchbox>
+<div class="container d-flex justify-content-between align-items-center h-100 p-0">
+    <app-articles-data [selectedArticle]="selectedArticle"></app-articles-data>
+    <app-articles-searchbox (articleSelected)="onArticleSelected($event)"></app-articles-searchbox>
 </div>

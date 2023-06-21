@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Article } from 'src/app/models/Article.model';
 import { MatPaginator } from '@angular/material/paginator';
@@ -12,7 +12,9 @@ import { ArticleService } from 'src/app/services/article.service';
 export class ArticlesSearchboxComponent {
 
   _articles: Article[] | undefined;
+  @Output() articleSelected: EventEmitter<Article> = new EventEmitter<Article>();
 
+ 
   _displayedColumns: string[] = [
     'title',
     'content',
@@ -40,7 +42,11 @@ export class ArticlesSearchboxComponent {
         this._dataSource.paginator = this._paginator;
       },
       (err) => {
-        // Hata durumunda yapılacak işlemler
+        console.log("Something get wrong");
       });
+  }
+
+  public   selectArticle(article: Article) {
+    this.articleSelected.emit(article);
   }
 }
