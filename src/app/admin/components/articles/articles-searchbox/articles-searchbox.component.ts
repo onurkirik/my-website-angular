@@ -14,7 +14,7 @@ export class ArticlesSearchboxComponent {
   _articles: Article[] | undefined;
   @Output() articleSelected: EventEmitter<Article> = new EventEmitter<Article>();
 
- 
+
   _displayedColumns: string[] = [
     'title',
     'content',
@@ -46,7 +46,7 @@ export class ArticlesSearchboxComponent {
       });
   }
 
-  public   selectArticle(article: Article) {
+  public selectArticle(article: Article) {
     this.articleSelected.emit(article);
   }
 }

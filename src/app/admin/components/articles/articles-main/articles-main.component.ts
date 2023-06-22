@@ -8,7 +8,7 @@ import { Article } from 'src/app/models/Article.model';
 })
 export class ArticlesMainComponent {
 
-  selectedArticle: Article | undefined;
+  selectedArticle!: Article;
 
   onArticleSelected(article: Article) {
     this.selectedArticle = article;

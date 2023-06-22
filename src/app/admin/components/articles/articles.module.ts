@@ -15,6 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatButtonModule} from '@angular/material/button';
+import {MatDialogModule} from '@angular/material/dialog';
+import { CategoryModalComponent } from './category-modal/category-modal.component';
 
 
 
@@ -22,7 +24,8 @@ import {MatButtonModule} from '@angular/material/button';
   declarations: [
     ArticlesMainComponent,
     ArticlesDataComponent,
-    ArticlesSearchboxComponent
+    ArticlesSearchboxComponent,
+    CategoryModalComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +43,8 @@ import {MatButtonModule} from '@angular/material/button';
     HttpClientModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule
   ]
 })
 export class ArticlesModule { }
