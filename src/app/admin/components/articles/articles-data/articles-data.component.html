@@ -1,22 +1,26 @@
 <div class="container">
-    <form [formGroup]="_articleForm" class="d-flex flex-column" (click)="onSubmit()">
-        <mat-form-field appearance="outline">
-            <mat-label>Title</mat-label>
-            <input matInput formControlName="title">
-        </mat-form-field>
+<mat-card class="shadow">
+    <mat-card-content>
+            <form [formGroup]="_articleForm" class="d-flex flex-column">
+                <mat-form-field appearance="outline">
+                    <mat-label>Title</mat-label>
+                    <input matInput formControlName="title">
+                </mat-form-field>
 
-        <mat-form-field appearance="outline" style="cursor: pointer;" (click)="showCategories()">
-            <mat-label style="cursor: pointer;">Category</mat-label>
-            <input type="hidden" style="cursor: pointer;"formControlName="categoryId">
-            <input style="cursor: pointer;" matInput [value]="_selectedCategory?.name">
-        </mat-form-field>
+                <mat-select-dialog style="cursor: pointer;" [dataSource]="selectDataSource" (page)="onPage($event)"
+                    (filter)="onFilter($event)" (done)="onDone($event)" [dialogWidth]="'640px'" [mode]="'single'"
+                    [customizeDisplayText]="customizeDisplayText" [hint]="undefined"
+                    [label]="'Category'"></mat-select-dialog>
 
-        <angular-editor placeholder="Enter article content..." [config]="_editorConfig"
-            formControlName="content"></angular-editor>
+                <angular-editor placeholder="Enter article content..." [config]="_editorConfig"
+                    formControlName="content"></angular-editor>
 
-        <div class="d-flex flex-row mt-2 justify-content-between">
-            <button mat-raised-button>Clear</button>
-            <button type="submit" mat-raised-button>Save</button>
-        </div>
-    </form>
+                <div class="d-flex flex-row mt-2 justify-content-between">
+                    <button mat-raised-button (click)="clearForm()">Clear</button>
+                    <button type="submit" mat-raised-button (click)="onSubmit()">{{selectedArticle ? 'Update' : 'Save'}}</button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
 </div>
+

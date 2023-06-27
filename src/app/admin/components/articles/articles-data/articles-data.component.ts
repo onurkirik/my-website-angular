@@ -1,11 +1,14 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Article } from 'src/app/models/Article.model';
 import { ArticleService } from 'src/app/services/article.service';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { CategoryModalComponent } from '../category-modal/category-modal.component';
 import { Category } from 'src/app/models/Category.model';
+import { MatSelectDialogDataSource } from 'ngx-mat-select-dialog';
+import { PageEvent } from '@angular/material/paginator';
+import { CategoryService } from 'src/app/services/category.service';
+import { AppUser } from 'src/app/models/AppUser.model';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-articles-data',
@@ -13,9 +16,22 @@ import { Category } from 'src/app/models/Category.model';
   styleUrls: ['./articles-data.component.scss']
 })
 export class ArticlesDataComponent {
-  @Input() selectedArticle!: Article;
-  _selectedCategory: Category | undefined;
+  @Input() selectedArticle: Article | null = null;
   _updatedArticle!: Article;
+  _createdArticle!: Article;
+  _currentUserId: string = '8391c80b-c0f3-478d-a936-c4cf655f20cc';
+
+  selectedItem: Array<any> = [];
+  selectDataSource = new MatSelectDialogDataSource<Category>({
+    data: [],
+    displayedColumns: ['name'],
+    paging: {
+      enabled: true,
+      mode: 'local',
+      pageSize: 10,
+      pageIndex: 0
+    }
+  });
 
   uploadWithCredentials = false;
   sanitize = true;
@@ -28,7 +44,7 @@ export class ArticlesDataComponent {
   _editorConfig: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
-    height: '15rem',
+    height: '14rem',
     minHeight: '0',
     maxHeight: 'auto',
     width: 'auto',
@@ -70,13 +86,48 @@ export class ArticlesDataComponent {
 
   constructor(
     private _articleService: ArticleService,
-    private _dialog: MatDialog,
-  ) { }
+    private _categoryService: CategoryService,
+    private _userService: UserService
+  ) {
+    _categoryService.getAll().subscribe(
+      (res) => {
+        if (res) {
+          this.selectDataSource.setData(res);
+        }
+      },
+      (error: any) => {
+      }
+    );
+  }
+
+  onPage(e: PageEvent): void {
+    this._categoryService.getAll().subscribe(
+      (res: Category[] | undefined) => {
+        if (res) {
+          res.splice(0, 100);
+          this.selectDataSource.setData(res);
+        }
+      }
+    );
+  }
+
+  onFilter(f: string): void {
+  }
+
+  onDone(selected: any): void {
+    this.selectedItem = selected;
+  }
+
+  customizeDisplayText(selected: Array<{ name: string }>): string {
+    return selected[0]?.name || "";
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['selectedArticle'] && !changes['selectedArticle'].firstChange) {
+      this.selectDataSource.setSelected([this.selectedArticle?.category!]);
       const selectedArticle = changes['selectedArticle'].currentValue as Article;
-      this._selectedCategory = selectedArticle.category;
+      this.selectedItem.push(selectedArticle.category);
+      console.log(this.selectedItem);
       const formValues = {
         id: selectedArticle.id || null,
         title: selectedArticle.title || null,
@@ -87,67 +138,66 @@ export class ArticlesDataComponent {
     }
   }
 
-  saveArticle(): void {
-    if (this._articleForm.valid) {
-      const formValues = this._articleForm.value;
-      const updatedArticle: Article = {
-        ...this.selectedArticle!,
-        title: formValues.title || '',
-        content: formValues.content || ''
-      };
-
-
-      this._articleService.updateArticle(updatedArticle).subscribe(
-        (response: Article | undefined) => {
-          // Güncelleme başarılı
-        },
-        (error: any) => {
-          // Güncelleme hatası
-        }
-      );
-    }
-  }
-
-  public showCategories(): void {
-    const dialogRef = this._dialog.open(CategoryModalComponent, {
-      width: '400px'
-    });
-
-    dialogRef.afterClosed().subscribe((selectedCategory: Category | undefined) => {
-      if (selectedCategory) {
-        this._selectedCategory = selectedCategory;
-        this._articleForm.get('categoryId')?.setValue(this._selectedCategory.id);
-      }
-    });
-  }
-
   public onSubmit() {
-    if (this._articleForm.valid) {
+    console.log(this.selectedItem);
+
+    if (this.selectedArticle) {
+      if (this._articleForm.valid) {
+        const formValues = this._articleForm.value;
+        this._updatedArticle = {
+          id: formValues.id || '',
+          title: formValues.title || '',
+          content: formValues.content || '',
+          createdDate: this.selectedArticle.createdDate,
+          updatedDate: new Date(),
+          userId: this.selectedArticle.userId,
+          categoryId: this.selectedItem[0].id || '',
+        };
+
+        console.log(this._updatedArticle);
+
+        this._articleService.updateArticle(this._updatedArticle).subscribe(
+          (response: Article | undefined) => {
+            console.log("Güncelleme başarılı");
+          },
+          (error: any) => {
+            console.log("Something went wrong");
+          }
+        );
+        this.clearForm();
+      }
+    } else {
       const formValues = this._articleForm.value;
-      this._updatedArticle = {
-        id: formValues.id || '',
+      this._createdArticle = {
         title: formValues.title || '',
         content: formValues.content || '',
-        createdDate: this.selectedArticle.createdDate,
-        updatedDate: this.selectedArticle.updatedDate,
-        author: this.selectedArticle.author,
-        userId: this.selectedArticle.userId,
-        categoryId: formValues.categoryId || '',
-        category: this._selectedCategory!
-      };
-  
-      console.log(this._updatedArticle);
+        createdDate: new Date(),
+        userId: this._currentUserId,
+        categoryId: this.selectedItem[0].id
+      }
+      console.log(this._createdArticle);
 
-      this._articleService.updateArticle(this._updatedArticle).subscribe(
-        (response: Article | undefined) => {
-          console.log("Güncelleme başarılı");
-        },
-        (error: any) => {
-          // Güncelleme hatası
+      this._articleService.create(this._createdArticle).subscribe(
+        (success) => {
+
+        }, (err) => {
+          console.log("something get wrong");
         }
       );
+      this.clearForm();
     }
   }
-  ngOnInit(): void { }
+
+
+  clearForm() {
+    this._articleForm.reset();
+    this.customizeDisplayText([]);
+    this._articleForm.get('content')?.setValue('');
+    this.selectDataSource.setSelected([]);
+    this.selectedArticle = null;
+  }
+
+  ngOnInit(): void {
+  }
 
 }

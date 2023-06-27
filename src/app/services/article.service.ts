@@ -33,4 +33,11 @@ export class ArticleService {
     }, article);
   }
 
+  public create(article: Article): Observable<Article | undefined> {
+    return this._httpClientService.post<Article>({
+      controller: 'Articles',
+      action: 'create-article'
+    }, article);
+  }
+
 }

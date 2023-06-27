@@ -2,13 +2,13 @@ import { AppUser } from "./AppUser.model";
 import { Category } from "./Category.model";
 
 export interface Article {
-    id: string,
+    id?: string,
     title: string,
     content: string,
     createdDate: Date,
-    updatedDate: Date,
+    updatedDate?: Date,
     userId: string,
-    author: AppUser,
+    author?: AppUser,
     categoryId: string,
-    category: Category,
+    category?: Category,
 }
