@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Category } from 'src/app/models/Category.model';
 
 @Component({
   selector: 'app-categories-main',
@@ -7,4 +8,12 @@ import { Component } from '@angular/core';
 })
 export class CategoriesMainComponent {
 
+  selectedCategory!: Category;
+  public onCategorySelected(category: Category) {
+    this.selectedCategory = category;
+  }
+
+
+  constructor() { }
+  ngOnInit(): void { }
 }

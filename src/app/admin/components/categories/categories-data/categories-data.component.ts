@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
+import { Category } from 'src/app/models/Category.model';
 
 @Component({
   selector: 'app-categories-data',
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./categories-data.component.scss']
 })
 export class CategoriesDataComponent {
+  @Input() _selectedCategory: Category | null = null;
 
+
+
+  
+  constructor() { }
+
+  ngOnInit(): void { }
+  
+  ngOnChanges(changes: SimpleChanges): void { }
 }

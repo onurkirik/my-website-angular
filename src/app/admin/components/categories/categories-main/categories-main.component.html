@@ -1,2 +1,4 @@
-<app-categories-data></app-categories-data>
-<app-categories-searchbox></app-categories-searchbox>
+<div class="d-flex justify-content-around align-items-center">
+    <app-categories-data [_selectedCategory]="selectedCategory" ></app-categories-data>
+    <app-categories-searchbox (_selectedCategory)="onCategorySelected($event)"></app-categories-searchbox>
+</div>

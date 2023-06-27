@@ -10,7 +10,7 @@ export class ArticlesMainComponent {
 
   selectedArticle!: Article;
 
-  onArticleSelected(article: Article) {
+  public onArticleSelected(article: Article) {
     this.selectedArticle = article;
   }
 
