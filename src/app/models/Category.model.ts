@@ -1,7 +1,7 @@
 import { Article } from "./Article.model";
 
 export interface Category {
-    id: string,
+    id?: string,
     name: string,
-    articles: Article[]
+    articles?: Article[]
 }

@@ -15,7 +15,8 @@ export class CategoriesSearchboxComponent {
   @Output() _selectedCategory: EventEmitter<Category> = new EventEmitter<Category>();
 
   _displayedColumns: string[] = [
-    'name'
+    'name',
+    'delete'
   ];
 
   _dataSource: MatTableDataSource<Category> = new MatTableDataSource<Category>();
@@ -44,6 +45,14 @@ export class CategoriesSearchboxComponent {
 
   public selectCategory(category: Category) {
     this._selectedCategory.emit(category);
+  }
+
+  public deleteCategory(category: Category){
+    this._categoryService.deleteCategory(category.id!).subscribe(
+      (success) => {
+        console.log("Success");
+      }
+    );
   }
 
 }

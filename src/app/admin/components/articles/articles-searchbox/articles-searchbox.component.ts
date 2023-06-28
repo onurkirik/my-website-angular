@@ -21,7 +21,8 @@ export class ArticlesSearchboxComponent {
     'createdDate',
     'updatedDate',
     'author',
-    'category'];
+    'category',
+    'delete'];
 
   _dataSource: MatTableDataSource<Article> = new MatTableDataSource<Article>();
   @ViewChild(MatPaginator) _paginator!: MatPaginator;
@@ -48,5 +49,13 @@ export class ArticlesSearchboxComponent {
 
   public selectArticle(article: Article) {
     this.articleSelected.emit(article);
+  }
+
+  public deleteCategory(article: Article) {
+    this._articleService.deleteArticle(article.id!).subscribe(
+      (success) => {
+        console.log("Success");
+      }
+    );
   }
 }

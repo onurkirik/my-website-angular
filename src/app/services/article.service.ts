@@ -40,4 +40,10 @@ export class ArticleService {
     }, article);
   }
 
+  public deleteArticle(id: string): Observable<Article | undefined> {
+    return this._httpClientService.delete<Article>({
+      controller: 'Articles'
+    }, id);
+  }
+
 }

@@ -51,7 +51,7 @@ export class BaseService {
     return this._httpClient.put<T>(url, body, { headers: _requestParameter.headers });
   }
 
-  delete<T>(_requestParameter: Partial<RequestParameters>, id: number): Observable<T> {
+  delete<T>(_requestParameter: Partial<RequestParameters>, id: string): Observable<T> {
     let url: string = "";
     if (_requestParameter.fullEndpoint)
       url = _requestParameter.fullEndpoint;
