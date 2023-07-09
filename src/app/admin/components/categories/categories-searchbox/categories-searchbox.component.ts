@@ -16,7 +16,8 @@ export class CategoriesSearchboxComponent {
 
   _displayedColumns: string[] = [
     'name',
-    'delete'
+    'update',
+    'delete',
   ];
 
   _dataSource: MatTableDataSource<Category> = new MatTableDataSource<Category>();
@@ -53,6 +54,10 @@ export class CategoriesSearchboxComponent {
         console.log("Success");
       }
     );
+  }
+
+  public updateCategory(category: Category){
+
   }
 
 }
