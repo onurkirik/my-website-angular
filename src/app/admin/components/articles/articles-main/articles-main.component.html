@@ -1,5 +1,5 @@
 <div class="justify-content-between align-items-center">
-    <app-articles-searchbox (articleSelected)="onArticleSelected($event)"></app-articles-searchbox>
+    <app-articles-searchbox #dataListComponent (articleSelected)="onArticleSelected($event)"></app-articles-searchbox>
     <div class="mt-4 row"></div>
-    <app-articles-data [selectedArticle]="selectedArticle"></app-articles-data>
+    <app-articles-data [selectedArticle]="selectedArticle" (formDone)="dataListComponent.getAllArticles()"></app-articles-data>
 </div>

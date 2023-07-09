@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { FormControl, FormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Article } from 'src/app/models/Article.model';
@@ -16,6 +16,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./articles-data.component.scss']
 })
 export class ArticlesDataComponent {
+  @Output() formDone = new EventEmitter();
   @Input() selectedArticle: Article | null = null;
   _updatedArticle!: Article;
   _createdArticle!: Article;
@@ -159,6 +160,7 @@ export class ArticlesDataComponent {
         this._articleService.updateArticle(this._updatedArticle).subscribe(
           (response: Article | undefined) => {
             console.log("Güncelleme başarılı");
+            this.formDone.emit();
           },
           (error: any) => {
             console.log("Something went wrong");
@@ -179,7 +181,7 @@ export class ArticlesDataComponent {
 
       this._articleService.create(this._createdArticle).subscribe(
         (success) => {
-
+          this.formDone.emit();
         }, (err) => {
           console.log("something get wrong");
         }

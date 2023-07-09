@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Article } from 'src/app/models/Article.model';
 import { MatPaginator } from '@angular/material/paginator';
 import { ArticleService } from 'src/app/services/article.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-articles-searchbox',
@@ -35,16 +36,16 @@ export class ArticlesSearchboxComponent {
     this.getAllArticles();
   }
 
-  public getAllArticles() {
-    this._articleService.getAll().subscribe(
-      (success) => {
-        this._articles = success;
+  public async getAllArticles() {
+    try {
+      const data = await firstValueFrom(this._articleService.getAll());
+
+      this._articles = data;
         this._dataSource = new MatTableDataSource<Article>(this._articles);
         this._dataSource.paginator = this._paginator;
-      },
-      (err) => {
-        console.log("Something get wrong");
-      });
+    } catch (error) {
+      console.log("Something get wrong");
+    }
   }
 
   public selectArticle(article: Article) {
@@ -55,6 +56,7 @@ export class ArticlesSearchboxComponent {
     this._articleService.deleteArticle(article.id!).subscribe(
       (success) => {
         console.log("Success");
+        this.getAllArticles()
       }
     );
   }
