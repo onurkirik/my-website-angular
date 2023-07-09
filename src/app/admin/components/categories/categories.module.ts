@@ -17,6 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
+import { CategoryModalComponent } from './category-modal/category-modal.component';
 
 
 
@@ -24,7 +25,8 @@ import { MatCardModule } from '@angular/material/card';
   declarations: [
     CategoriesMainComponent,
     CategoriesSearchboxComponent,
-    CategoriesDataComponent
+    CategoriesDataComponent,
+    CategoryModalComponent
   ],
   imports: [
     CommonModule,

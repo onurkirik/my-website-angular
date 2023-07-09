@@ -1,8 +1,10 @@
 import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Category } from 'src/app/models/Category.model';
 import { CategoryService } from 'src/app/services/category.service';
+import { CategoryModalComponent } from '../category-modal/category-modal.component';
 
 @Component({
   selector: 'app-categories-searchbox',
@@ -24,9 +26,10 @@ export class CategoriesSearchboxComponent {
   @ViewChild(MatPaginator) _paginator!: MatPaginator;
 
   constructor(
-    private _categoryService: CategoryService
+    private _categoryService: CategoryService,
+    private _dialog: MatDialog
   ) { }
-    
+
   ngOnInit(): void {
     this.getCategories();
   }
@@ -48,16 +51,35 @@ export class CategoriesSearchboxComponent {
     this._selectedCategory.emit(category);
   }
 
-  public deleteCategory(category: Category){
-    this._categoryService.deleteCategory(category.id!).subscribe(
-      (success) => {
-        console.log("Success");
-      }
-    );
+  public createCategory() {
+    const dialogRef = this._dialog.open(CategoryModalComponent);
+    dialogRef.afterClosed().subscribe(() => {
+      this.afterModelClosed();
+    });
   }
 
-  public updateCategory(category: Category){
+  public deleteCategory(category: Category) {
+    try {
+      const _deletedCategoryId = category.id;
+      this._categoryService.deleteCategory(_deletedCategoryId!).subscribe();
+      this.getCategories();
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
+  public updateCategory(category: Category) {
+    const dialogRef = this._dialog.open(CategoryModalComponent, {
+      data: category
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.afterModelClosed();
+    })
+  }
+
+  public afterModelClosed() {
+    this.getCategories();
   }
 
 }
