@@ -45,7 +45,7 @@ export class ArticlesDataComponent {
   _editorConfig: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
-    height: '14rem',
+    height: '11rem',
     minHeight: '0',
     maxHeight: 'auto',
     width: 'auto',

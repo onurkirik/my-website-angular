@@ -1,9 +1,11 @@
 import { AppUser } from "./AppUser.model";
 
 export interface Project {
-    Title: string,
-    StartDate: Date,
-    EndDate: Date,
-    UserId: string,
-    User: AppUser,
+    id?: string,
+    title: string,
+    content: string,
+    startDate: Date,
+    endDate: Date,
+    userId?: string,
+    user?: AppUser,
 }
