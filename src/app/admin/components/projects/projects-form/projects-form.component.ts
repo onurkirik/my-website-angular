@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { Project } from 'src/app/models/Project.model';
@@ -12,8 +12,11 @@ import { ProjectService } from 'src/app/services/project.service';
 export class ProjectsFormComponent {
 
   @Output() formDone = new EventEmitter();
-  selectedProject: Project | undefined;
+  @Input() _selectedProject: Project | null = null;
+
+  selectedProject: Project | null = null;
   _createdProject!: Project;
+  _updatedProject!: Project;
   _currentUserId: string = '8391c80b-c0f3-478d-a936-c4cf655f20cc';
 
   _projectForm = new FormGroup({
@@ -71,7 +74,24 @@ export class ProjectsFormComponent {
   constructor(
     private _projectService: ProjectService
   ) { }
+
   ngOnInit(): void { }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['_selectedProject'] && !changes['_selectedProject'].firstChange) {
+      this.selectedProject = this._selectedProject;
+      const formValues = {
+        id: this._selectedProject?.id || null,
+        title: this._selectedProject?.title || null,
+        content: this._selectedProject?.content || null,
+        startDate: this._selectedProject?.startDate ? new Date(this._selectedProject.startDate).toString() : null,
+        endDate: this._selectedProject?.endDate ? new Date(this._selectedProject.endDate).toString() : null
+      };
+
+      this._projectForm.setValue(formValues);
+
+    }
+  }
 
   public clearForm() {
     this._projectForm.reset();
@@ -80,7 +100,29 @@ export class ProjectsFormComponent {
 
   public onSubmit() {
     if (this.selectedProject) {
+      if (this._projectForm.valid) {
+        const formValues = this._projectForm.value;
+        this._updatedProject = {
+          id: formValues.id || '',
+          title: formValues.title || '',
+          content: formValues.content || '',
+          startDate: formValues.startDate ? new Date(formValues.startDate) : new Date(),
+          endDate: formValues.endDate ? new Date(formValues.endDate) : new Date(),
+          userId: this._currentUserId
+        };
 
+        try {
+          this._projectService.updateProject(this._updatedProject).subscribe(
+            (success) => {
+              this.formDone.emit();
+              this.clearForm();
+            }
+          );
+        } catch (error) {
+          console.log(error);
+        }
+
+      }
     } else {
       const formValues = this._projectForm.value;
 
@@ -95,6 +137,7 @@ export class ProjectsFormComponent {
       this._projectService.create(this._createdProject).subscribe(
         (success) => {
           this.formDone.emit();
+          this.clearForm();
         }
       );
     }

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -14,8 +14,9 @@ import { firstValueFrom } from 'rxjs';
 export class ProjectsDataComponent {
 
   _projects: Project[] | undefined;
-
+  @Output() _selectedProject: EventEmitter<Project> = new EventEmitter<Project>();
   _dataSource: MatTableDataSource<Project> = new MatTableDataSource<Project>();
+
   @ViewChild(MatPaginator) _paginator!: MatPaginator;
 
   _displayedColumns: string[] = [
@@ -34,7 +35,7 @@ export class ProjectsDataComponent {
   }
 
   public selectProject(project: Project) {
-
+    this._selectedProject.emit(project);
   }
 
   public updateProject(project: Project) {
@@ -42,7 +43,12 @@ export class ProjectsDataComponent {
   }
 
   public deleteProject(project: Project) {
-
+    this._projectService.deleteProject(project.id!).subscribe(
+      (success) => {
+        console.log("Success");
+        this.getProjects();
+      }
+    );
   }
 
   public async getProjects() {
@@ -56,7 +62,6 @@ export class ProjectsDataComponent {
       console.log("Something get wrong");
     }
   }
-
 
 }
 

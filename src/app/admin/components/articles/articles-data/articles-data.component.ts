@@ -88,7 +88,6 @@ export class ArticlesDataComponent {
   constructor(
     private _articleService: ArticleService,
     private _categoryService: CategoryService,
-    private _userService: UserService
   ) {
     _categoryService.getAll().subscribe(
       (res) => {

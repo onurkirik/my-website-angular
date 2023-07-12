@@ -1,4 +1,5 @@
 <div class="justify-content-center align-items-center mt-4">
-    <app-projects-data #dataListComponent></app-projects-data>
-    <app-projects-form (formDone)="dataListComponent.getProjects()"></app-projects-form>
+    <app-projects-data #dataListComponent (_selectedProject)="onSelectedProject($event)"></app-projects-data>
+    <app-projects-form [_selectedProject]="selectedProject"
+        (formDone)="dataListComponent.getProjects()"></app-projects-form>
 </div>

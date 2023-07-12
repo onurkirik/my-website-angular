@@ -30,12 +30,12 @@ import { Project } from "../models/Project.model";
       }, Project);
     }
   
-    public updateProject(Project: Project): Observable<Project | undefined> {
+    public updateProject(project: Project): Observable<Project | undefined> {
   
       return this._httpClientService.put<Project>({
         controller: 'Projects',
         action: 'update-project'
-      }, Project);
+      }, project);
     }
   
     public deleteProject(id: string): Observable<Project> {
