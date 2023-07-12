@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { firstValueFrom } from 'rxjs';
@@ -11,7 +11,7 @@ import { EducationService } from 'src/app/services/education.service';
   styleUrls: ['./education-data.component.scss']
 })
 export class EducationDataComponent {
-
+  @Output() _selectedEducation: EventEmitter<Education> = new EventEmitter<Education>();
   _dataSource: MatTableDataSource<Education> = new MatTableDataSource<Education>();
   _educations: Education[] | undefined;
   @ViewChild(MatPaginator) _paginator!: MatPaginator;
@@ -20,19 +20,31 @@ export class EducationDataComponent {
     'title',
     'startDate',
     'endDate',
+    'delete'
   ]
 
   constructor(
     private _educationService: EducationService
   ) { }
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.getEducations();
+  }
 
   public selectEducation(education: Education) {
-
+    this._selectedEducation.emit(education);
   }
 
   public deleteEducation(education: Education) {
 
+    try {
+      this._educationService.deleteEducation(education.id!).subscribe(
+        (success) => {
+          this.getEducations();
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   public async getEducations() {

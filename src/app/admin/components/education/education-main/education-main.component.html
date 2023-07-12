@@ -1,2 +1,5 @@
-<app-education-data></app-education-data>
-<app-education-form></app-education-form>
+<div class="d-flex justify-content-around align-items-center p-4">
+    <app-education-form (_formDone)="dataListComponent.getEducations()" [selectedEducation]="selectedEducation" class="w-100"></app-education-form>
+    <app-education-data #dataListComponent (_selectedEducation)="onSelectedEducation($event)"
+        class="w-100"></app-education-data>
+</div>
