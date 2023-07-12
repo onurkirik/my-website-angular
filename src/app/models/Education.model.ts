@@ -1,9 +1,9 @@
 import { AppUser } from "./AppUser.model";
 
 export interface Education {
-    Title: string,
-    StartDate: Date,
-    EndDate: Date,
-    UserId: string,
-    User: AppUser,
+    title: string,
+    startDate: Date,
+    endDate: Date,
+    userId: string,
+    user?: AppUser,
 }

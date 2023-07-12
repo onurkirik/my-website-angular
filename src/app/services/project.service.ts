@@ -23,11 +23,11 @@ import { Project } from "../models/Project.model";
       });
     }
   
-    public create(Project: Project): Observable<Project | undefined> {
+    public create(project: Project): Observable<Project | undefined> {
       return this._httpClientService.post<Project>({
         controller: "Projects",
         action: "create-project"
-      }, Project);
+      }, project);
     }
   
     public updateProject(project: Project): Observable<Project | undefined> {
