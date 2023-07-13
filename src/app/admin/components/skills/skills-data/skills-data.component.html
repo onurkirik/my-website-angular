@@ -1,7 +1,7 @@
 <div class="container" style="width: 100%;">
     <div class="mat-elevation-z8 mt-4 w-100">
-        <div class="w-100 d-flex justify-content-end p-2" style="cursor: pointer;" (click)="createSkill()">
-            <button mat-raised-button>New Skill</button>
+        <div class="w-100 d-flex justify-content-end p-2 bg-white">
+            <button (click)="createSkill()" mat-raised-button>New Skill</button>
         </div>
         <table mat-table [dataSource]="_dataSource" class="w-100">
 
