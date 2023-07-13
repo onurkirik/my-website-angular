@@ -1,0 +1,17 @@
+<div class="container p-4" style="width: 450px;">
+    <mat-card-content>
+            <form [formGroup]="_certificateForm" class="d-flex flex-column">
+
+                <input type="text" style="visibility: hidden;" formControlName="id">
+                <mat-form-field appearance="outline">
+                    <mat-label>Certificate Name</mat-label>
+                    <input matInput formControlName="name">
+                </mat-form-field>
+
+                <div class="d-flex flex-row mt-2 justify-content-between">
+                    <button mat-raised-button (click)="clearForm()">Clear</button>
+                    <button type="submit" mat-raised-button (click)="onSubmit()">{{_selectedCertificate ? 'Update' : 'Save'}}</button>
+                </div>
+            </form>
+        </mat-card-content>
+</div>

@@ -15,12 +15,14 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
+import { CertificatesModalComponent } from './certificates-modal/certificates-modal.component';
 
 
 @NgModule({
   declarations: [
     CertificatesMainComponent,
-    CertificatesDataComponent
+    CertificatesDataComponent,
+    CertificatesModalComponent
   ],
   imports: [
     CommonModule,

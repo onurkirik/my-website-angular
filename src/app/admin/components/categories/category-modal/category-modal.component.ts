@@ -34,7 +34,7 @@ export class CategoryModalComponent {
   }
 
   public clearForm() {
-
+    this._categoryForm.reset();
   }
 
   public onSubmit() {
