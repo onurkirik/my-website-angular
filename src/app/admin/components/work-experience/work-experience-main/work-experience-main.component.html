@@ -1,2 +1,4 @@
-<app-work-experience-data></app-work-experience-data>
-<app-work-experience-form></app-work-experience-form>
+<app-work-experience-data #dataListComponent
+    (_selectedExperience)="onSelectedExperience($event)"></app-work-experience-data>
+<app-work-experience-form (formDone)="dataListComponent.getExperiences()"
+    [selectedExperience]="_selectedExperience"></app-work-experience-form>

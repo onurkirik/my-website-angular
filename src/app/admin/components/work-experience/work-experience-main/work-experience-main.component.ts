@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { WorkExperience } from 'src/app/models/WorkExperience.model';
 
 @Component({
   selector: 'app-work-experience-main',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./work-experience-main.component.scss']
 })
 export class WorkExperienceMainComponent {
+  _selectedExperience: WorkExperience | undefined;
 
+  public onSelectedExperience(element: WorkExperience) {
+    this._selectedExperience = element;
+  }
 }

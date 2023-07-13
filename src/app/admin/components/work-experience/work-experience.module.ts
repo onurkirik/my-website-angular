@@ -16,8 +16,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
-
-
+import {AngularEditorModule} from '@kolkov/angular-editor';
 
 @NgModule({
   declarations: [
@@ -42,7 +41,8 @@ import { MatInputModule } from '@angular/material/input';
     MatDatepickerModule,
     HttpClientModule,
     MatDividerModule,
-    MatInputModule
+    MatInputModule,
+    AngularEditorModule
   ]
 })
 export class WorkExperienceModule { }

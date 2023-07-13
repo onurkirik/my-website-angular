@@ -24,7 +24,9 @@ export class WorkExperienceDataComponent {
   ];
 
   constructor(private _workExperienceService: WorkExperienceService) { }
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.getExperiences();
+  }
 
   public async getExperiences() {
     try {
