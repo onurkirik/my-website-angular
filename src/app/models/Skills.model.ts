@@ -1,8 +1,9 @@
 import { AppUser } from "./AppUser.model";
 
-export interface Skills{
- Name:string,
- Rate:number,
- UserId:string,
- User:AppUser,
+export interface Skills {
+    id?: string,
+    name: string,
+    rate: number,
+    userId: string,
+    user?: AppUser,
 }

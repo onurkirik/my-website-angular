@@ -10,7 +10,8 @@ const routes: Routes = [
       { path: "projects", loadChildren: () => import("./admin/components/projects/projects.module").then(module => module.ProjectsModule) },
       { path: "education", loadChildren: () => import("./admin/components/education/education.module").then(module => module.EducationModule) },
       { path: "experiences", loadChildren: () => import("./admin/components/work-experience/work-experience.module").then(module => module.WorkExperienceModule) },
-      { path: "certificates", loadChildren: () => import("./admin/components/certificates/certificates.module").then(module => module.CertificatesModule) }
+      { path: "certificates", loadChildren: () => import("./admin/components/certificates/certificates.module").then(module => module.CertificatesModule) },
+      { path: "skills", loadChildren: () => import("./admin/components/skills/skills.module").then(module => module.SkillsModule) }
     ]
   },
   { path: "login", loadChildren: () => import("./ui/components/register/register.module").then(module => module.RegisterModule) },
