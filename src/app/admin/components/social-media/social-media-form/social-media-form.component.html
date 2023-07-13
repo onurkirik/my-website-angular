@@ -1,1 +1,24 @@
-<p>social-media-form works!</p>
+<div class="container p-4" style="width: 450px;">
+    <mat-card-content>
+        <form [formGroup]="_socialMediaForm" class="d-flex flex-column">
+
+            <input type="text" style="visibility: hidden;" formControlName="id">
+
+            <mat-form-field appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Link</mat-label>
+                <input matInput formControlName="link">
+            </mat-form-field>
+
+            <div class="d-flex flex-row mt-2 justify-content-between">
+                <button mat-raised-button (click)="clearForm()">Clear</button>
+                <button type="submit" mat-raised-button (click)="onSubmit()">{{_selectedSocialMedia ? 'Update' :
+                    'Save'}}</button>
+            </div>
+        </form>
+    </mat-card-content>
+</div>
