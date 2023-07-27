@@ -19,13 +19,16 @@ export class ProjectsFormComponent {
   _updatedProject!: Project;
   _currentUserId: string = '8391c80b-c0f3-478d-a936-c4cf655f20cc';
 
-  _projectForm = new FormGroup({
+  private _projectForm = new FormGroup({
     id: new FormControl(''),
     title: new FormControl('', [Validators.required]),
     content: new FormControl('', [Validators.required]),
     startDate: new FormControl('', [Validators.required]),
     endDate: new FormControl('', [Validators.required]),
   });
+  public get projectForm(): FormGroup {
+    return this._projectForm;
+  }
 
   uploadWithCredentials = false;
   sanitize = true;
@@ -84,8 +87,8 @@ export class ProjectsFormComponent {
         id: this._selectedProject?.id || null,
         title: this._selectedProject?.title || null,
         content: this._selectedProject?.content || null,
-        startDate: this._selectedProject?.startDate ? new Date(this._selectedProject.startDate).toString() : null,
-        endDate: this._selectedProject?.endDate ? new Date(this._selectedProject.endDate).toString() : null
+        startDate: this._selectedProject?.startDate ? new Date(this._selectedProject.startDate).toISOString() : null,
+        endDate: this._selectedProject?.endDate ? new Date(this._selectedProject.endDate).toISOString() : null
       };
 
       this._projectForm.setValue(formValues);
