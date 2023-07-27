@@ -40,8 +40,8 @@ export class EducationFormComponent {
       const formValues = {
         id: this._selectedEducation?.id || null,
         title: this._selectedEducation?.title || null,
-        startDate: this._selectedEducation?.startDate ? new Date(this._selectedEducation.startDate).toString() : null,
-        endDate: this._selectedEducation?.endDate ? new Date(this._selectedEducation.endDate).toString() : null
+        startDate: this._selectedEducation?.startDate ? new Date(this._selectedEducation.startDate).toISOString() : null,
+        endDate: this._selectedEducation?.endDate ? new Date(this._selectedEducation.endDate).toISOString() : null
       };
 
       this._educationForm.setValue(formValues);

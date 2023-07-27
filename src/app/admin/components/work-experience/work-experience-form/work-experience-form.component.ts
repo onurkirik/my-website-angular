@@ -75,8 +75,8 @@ export class WorkExperienceFormComponent {
         id: this._selectedExperience?.id || null,
         title: this._selectedExperience?.title || null,
         content: this._selectedExperience?.content || null,
-        startDate: this._selectedExperience?.startDate ? new Date(this._selectedExperience.startDate).toString() : null,
-        endDate: this._selectedExperience?.endDate ? new Date(this._selectedExperience.endDate).toString() : null,
+        startDate: this._selectedExperience?.startDate ? new Date(this._selectedExperience.startDate).toISOString() : null,
+        endDate: this._selectedExperience?.endDate ? new Date(this._selectedExperience.endDate).toISOString() : null,
       };
 
       this._experienceForm.setValue(formValues);
