@@ -14,8 +14,6 @@
                 <input matInput type="number" formControlName="rate">
             </mat-form-field>
 
-            <input class="mb-4" type="file" (change)="imageUpload($event)" accept="" >
-
             <div class="d-flex flex-row mt-2 justify-content-between">
                 <button mat-raised-button (click)="clearForm()">Clear</button>
                 <button type="submit" mat-raised-button (click)="onSubmit()">{{_selectedSkill ? 'Update' :
