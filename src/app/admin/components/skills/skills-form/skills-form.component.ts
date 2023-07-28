@@ -19,7 +19,7 @@ export class SkillsFormComponent {
   _skillsForm = new FormGroup({
     id: new FormControl(''),
     name: new FormControl('', Validators.required),
-    rate: new FormControl('', Validators.required)
+    rate: new FormControl('', Validators.required),
   });
 
   constructor(
@@ -34,7 +34,7 @@ export class SkillsFormComponent {
       this._skillsForm.setValue({
         id: this._selectedSkill?.id || '',
         name: this._selectedSkill?.name || '',
-        rate: this._selectedSkill?.rate.toString() || ''
+        rate: this._selectedSkill?.rate.toString() || '',
       });
     }
   }
@@ -75,6 +75,12 @@ export class SkillsFormComponent {
         console.log(error);
       }
     }
+  }
+
+  imageUpload(event: any) {
+    var file = event.target.files[0];
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
   }
 
 }
